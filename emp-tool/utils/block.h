@@ -3,7 +3,7 @@
 
 #ifdef __x86_64__
 #include <immintrin.h>
-#elif __aarch64__
+#elif __arm__
 #include "sse2neon.h"
 inline __m128i _mm_aesimc_si128(__m128i a) {
 	return vreinterpretq_m128i_u8(vaesimcq_u8(vreinterpretq_u8_m128i(a)));
@@ -37,7 +37,7 @@ __attribute__((target("sse2")))
 inline block makeBlock(uint64_t high, uint64_t low) {
 	return _mm_set_epi64x(high, low);
 }
-#elif __aarch64__
+#elif __arm__
 inline block makeBlock(uint64_t high, uint64_t low) {
 	return (block)vcombine_u64((uint64x1_t)low, (uint64x1_t)high);
 }
